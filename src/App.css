@@ -1,0 +1,25 @@
+.snake-area{
+  width: 600px;
+  height: 600px;
+  border: 2px solid #000;
+  margin: 50px auto;
+  position: relative;
+}
+
+.snake-dot{
+  position: absolute;
+  background: #000;
+  width: 2%;
+  height: 2%;
+  border: 1px solid #000;
+  border-radius: 10px;
+}
+
+.food-snake{
+  position: absolute;
+  background: #ff2a2a;
+  width: 2%;
+  height: 2%;
+  border: .5px solid #000;
+  border-radius: 10px;
+}
