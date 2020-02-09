@@ -21,75 +21,87 @@ function App() {
 
 
   const [food, setfood] = useState(getrandomcordinates());
-  const [snake, setSnake] = useState([[0,0],[2,0]]);
-  const [direction, setDirection] = useState(RIGHT);
+  const [snakeDots, setSnakeDots] = useState([[0,0],[2,0]]);
+  const [direction, setDirection] = useState("RIGHT");
   // const [speed, setSpeed] = useState(500);
 
   useEffect(()=>{
-    setInterval( moveSnake , 500 )
+    setInterval( moveSnake , 2000 )
+    // moveSnake()
     document.onkeydown = onKeyDown 
     console.log("onceeeeeeeeeeeeeeeeeeeeeee")
   },[])
 
-    // useEffect(()=>{
-    //   // setInterval( moveSnake , 1000 )
-    //   document.onkeydown = onKeyDown 
-    // },[direction])
+    useEffect(()=>{
+      // setInterval( moveSnake , 1000 )
+      // document.onkeydown = onKeyDown 
+      console.log("direction useEffect")
+      console.log("<<<<direction useEffect>>>",direction)
+    },[direction])
+    
+    useEffect(()=>{
+      // setInterval( moveSnake , 1000 )
+      // document.onkeydown = onKeyDown 
+      console.log("snakeDots useEffect")
+      console.log("snakeDots useEffect>>>",snakeDots)
+    },[snakeDots])
   
   const onKeyDown = (e) => {
     e = e || window.event
-    console.log("event key" ,e.keyCode)
-    switch(e.keyCode){
-      case 38:
-        setDirection(UP);
+    console.log("event key" ,typeof e.keyCode.toString())
+    switch(e.keyCode.toString()){
+      case '38':
+        setDirection("UP");
         break;
-      case 40:
-        setDirection(DOWN);
+      case '40':
+        setDirection("DOWN");
         break;
-      case 37:
-        setDirection(LEFT);
+      case '37':
+        setDirection("LEFT");
         break;
-      case 39:
-        setDirection(RIGHT);
+      case '39':
+        setDirection("RIGHT");
         break;
     }
+    console.log("onKeyDown direction>>",direction)
   }
 
   const moveSnake = ()=>{
-    // console.log("snake>>>>",snake)
-    let dots = snake ;
-    // console.log("dots",dots)
-    let head = dots[ dots.length - 1 ]; 
+    // console.log("snake>>>>",snakeDots)
+    let dots = snakeDots ;
+    // console.log("dots",dots.length)
+    let head = dots[ (dots.length - 1) ]; 
     // console.log("dots head head",head)
     
     switch(direction){
-      case RIGHT:
-        head = [ head[0] + 2 , head[1] ];
-        break;
-      case LEFT:
+      case "LEFT":
         head = [ head[0] - 2 , head[1] ];
         break;
-      case DOWN:
+      case "DOWN":
         head = [ head[0] , head[1] + 2 ];
         break;
-      case UP:
+      case "UP":
         head = [ head[0] , head[1] - 2 ];
         break;
+      case "RIGHT":
+        head = [ head[0] + 2 , head[1] ];
+        break;  
     }
-    //  console.log("head afte switch",head)
+    console.log("moveSnake direction>>",direction)
+     console.log("head afte switch",head)
      dots.push([...head])
     //  console.log(" befor shift dots",dots)
      dots.shift()
     //  console.log(" afte shift dots",dots)
-     setSnake([...dots])
-    //  console.log(" afte dots dots>",dots)
+    setSnakeDots([...dots]);
+    //  console.log(" afte dots dots>",dots);
     //  console.log(" afte dots setSnake>",snake)
 
   }
 
   return (
     <div className="snake-area" >
-      <Snake snakeDots={snake} />
+      <Snake snakeDots={snakeDots} />
       <SnakeFood foodLocation={food} />
     </div>
   );
